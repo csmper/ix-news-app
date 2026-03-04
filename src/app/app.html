@@ -1,9 +1,10 @@
-<div class="container">
-	<h2>{{title()}} : Top News</h2>
+<div class="container-fluid">
+	<h2 [style.margin-left.px]="20">{{title()}} : Top News</h2>
 
 	@for (item of news(); track item.title) {
-		<div class="row news-item">
+		<div class="news-item">
 			<a class="p-0" href="{{item.link}}" target="_blank">{{item.title}}</a>
+			<br>
 			{{item.pubDate}}
 		</div>
 	}

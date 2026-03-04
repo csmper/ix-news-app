@@ -16,7 +16,7 @@ export class App implements OnInit {
 	}
 
 	getNews() {
-		this.http.get<NewsResponse>('http://localhost:3001/api/news').subscribe((data) => {
+		this.http.get<NewsResponse>('/api/news').subscribe((data) => {
 			this.news.set(data.rss.channel[0].item);
 		});
 	}

@@ -1,12 +1,21 @@
 <div class="container-fluid">
-	<h2 [style.margin-left.px]="20">{{title()}} : Top News</h2>
-
-	@for (item of news(); track item.title) {
-		<div class="news-item">
-			<a class="p-0" href="{{item.link}}" target="_blank">{{item.title}}</a>
-			<br>
-			{{item.pubDate}}
+	@for (news of news(); track news.title) {
+		<div class="card border border-success rounded-0 mb-0">
+			<div class="card-header d-flex">
+				<h5 class="card-title">{{ news.title[0] }}</h5>
+			</div>
+			<div class="card-body">
+				<h6>Related Coverage</h6>
+				<p class="card-text" [innerHTML]="news.description[0]"></p>
+			</div>
+			<div class="card-footer d-flex justify-content-between">
+				<span class="d-flex align-items-center">
+					{{ news.pubDate[0] | date:'mediumDate' }}
+				</span>
+				<a [href]="news.link[0]" target="_blank" class="btn btn-primary">
+					Read Full Story
+				</a>
+			</div>
 		</div>
 	}
-
 </div>

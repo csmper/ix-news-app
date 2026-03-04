@@ -1,10 +1,12 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
 
 @Component({
 	selector: 'app-root',
 	templateUrl: './app.html',
-	styleUrl: './app.scss'
+	styleUrl: './app.scss',
+	imports: [DatePipe]
 })
 export class App implements OnInit {
 	protected readonly title = signal('ix-news-app');
@@ -22,11 +24,19 @@ export class App implements OnInit {
 	}
 }
 
+interface NewsSource {
+	_: string;
+	$: {
+		url: string;
+	};
+}
+
 interface NewsItem {
 	title: string;
 	link: string;
 	pubDate: string;
 	description: string;
+	source: NewsSource[];
 }
 
 interface NewsResponse {

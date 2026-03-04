@@ -1,8 +1,9 @@
 const express = require('express');
 const axios = require('axios');
 const xml2js = require('xml2js');
-
 const cors = require('cors');
+
+const path = require('path');
 const app = express();
 const PORT = 3001;
 const parser = new xml2js.Parser();
@@ -32,7 +33,10 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK' });
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
-  console.log(`News API available at http://localhost:${PORT}/api/news`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on http://localhost:${PORT}`);
+//   console.log(`News API available at http://localhost:${PORT}/api/news`);
+// });
+
+// IMPORTANT: Export for Vercel, do not use app.listen()
+module.exports = app;

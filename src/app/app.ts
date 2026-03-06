@@ -47,16 +47,18 @@ export class App implements OnInit {
 	newsType = NewsType;
 	activeTab = NewsType.TOP_NEWS;
 	NewsType: any;
+	showSpinner = signal(true);
 
 	ngOnInit() {
 		this.getNews(NewsType.TOP_NEWS);
 	}
 
 	getNews(newsType: NewsType) {
+		this.showSpinner.set(true);
 		this.activeTab = newsType;
-		console.log('Fetching news...', this.activeTab);
 		const params = new URLSearchParams({ newsType: this.activeTab });
 		this.http.get<NewsResponse>(`/api/news?${params}`).subscribe((data) => {
+			this.showSpinner.set(false);
 			this.news.set(data.rss.channel[0].item);
 		});
 	}

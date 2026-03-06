@@ -1,21 +1,73 @@
-<nav class="navbar sticky-top navbar-light bg-light mx-3">
-	<div class="container-fluid btn-group" role="group" aria-label="Basic outlined example">
-		<button type="button" class="btn btn-outline-primary" [class.active]="activeTab === newsType.TOP_NEWS" (click)="activeTab = newsType.TOP_NEWS">Top News</button>
-		<button type="button" class="btn btn-outline-primary" [class.active]="activeTab === newsType.TECHNOLOGY" (click)="activeTab = newsType.TECHNOLOGY">Technology</button>
-		<button type="button" class="btn btn-outline-primary" [class.active]="activeTab === newsType.SPORTS" (click)="activeTab = newsType.SPORTS">Sports</button>
+<nav 
+	class="navbar sticky-top navbar-light bg-light mx-3"
+>
+	<div 
+		class="container-fluid btn-group" 
+		role="group" 
+		aria-label="Basic outlined example"
+	>
+		<button 
+			type="button" 
+			class="btn btn-outline-primary" 
+			[class.active]="activeTab === newsType.TOP_NEWS" 
+			(click)="getNews(newsType.TOP_NEWS)"
+		>
+			{{newsType.TOP_NEWS}}
+		</button>
+		
+		<button 
+			type="button" 
+			class="btn btn-outline-primary" 
+			[class.active]="activeTab === newsType.TECHNOLOGY" 
+			(click)="getNews(newsType.TECHNOLOGY)"
+		>
+			{{newsType.TECHNOLOGY}}
+		</button>
+		<button 
+			type="button" 
+			class="btn btn-outline-primary" 
+			[class.active]="activeTab === newsType.BUSINESS" 
+			(click)="getNews(newsType.BUSINESS)"
+		>
+			{{newsType.BUSINESS}}
+		</button>
+		<button 
+			type="button" 
+			class="btn btn-outline-primary" 
+			[class.active]="activeTab === newsType.SPORTS" 
+			(click)="getNews(newsType.SPORTS)"
+		>
+			{{newsType.SPORTS}}
+		</button>
 	</div>
 </nav>
-<div class="mx-3">
+
+<div 
+	class="mx-3"
+>
 	@for (news of news(); track news.title) {
-		<div class="container card border border-success rounded-0 mb-0 px-0">
-			<div class="card-header d-flex">
-				<h5 class="card-title">{{ news.title[0] }}</h5>
+		<div 
+			class="container card border border-success rounded-0 mb-0 px-0"
+		>
+			<div 
+				class="card-header d-flex"
+			>
+				<h5 
+					class="card-title"
+				>
+					{{ news.title[0] }}
+				</h5>
 			</div>
-			<div class="card-body">
+			
+			<div 
+				class="card-body"
+			>
 				<h6>Related Coverage</h6>
 				<p class="card-text" [innerHTML]="news.description[0]"></p>
 			</div>
-			<div class="card-footer d-flex justify-content-between">
+			<div 
+				class="card-footer d-flex justify-content-between"
+			>
 				<span class="d-flex align-items-center">
 					{{ news.pubDate[0] | date:'mediumDate' }}
 				</span>

@@ -19,7 +19,7 @@ interface NewsItem {
 }
 
 interface NewsResponse {
-	rss : {
+	rss: {
 		channel: {
 			item: NewsItem[];
 		}[];
@@ -27,8 +27,9 @@ interface NewsResponse {
 }
 
 enum NewsType {
-	TOP_NEWS = 'Top News',
+	TOP_NEWS = 'Top Stories',
 	TECHNOLOGY = 'Technology',
+	BUSINESS = 'Business',
 	SPORTS = 'Sports'
 }
 
@@ -45,14 +46,17 @@ export class App implements OnInit {
 	news = signal<NewsItem[]>([]);
 	newsType = NewsType;
 	activeTab = NewsType.TOP_NEWS;
-NewsType: any;
+	NewsType: any;
 
 	ngOnInit() {
-		this.getNews();
+		this.getNews(NewsType.TOP_NEWS);
 	}
 
-	getNews() {
-		this.http.get<NewsResponse>('/api/news').subscribe((data) => {
+	getNews(newsType: NewsType) {
+		this.activeTab = newsType;
+		console.log('Fetching news...', this.activeTab);
+		const params = new URLSearchParams({ newsType: this.activeTab });
+		this.http.get<NewsResponse>(`/api/news?${params}`).subscribe((data) => {
 			this.news.set(data.rss.channel[0].item);
 		});
 	}

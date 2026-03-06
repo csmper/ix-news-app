@@ -16,7 +16,8 @@ app.use(cors({
 // API endpoint to fetch Google News RSS
 app.get('/api/news', async (req, res) => {
   try {
-    const response = await axios.get('https://news.google.com/rss?hl=en-IN&gl=IN&ceid=IN:en');
+    const newsType = req.query.newsType || 'Top Stories';
+    const response = await axios.get(`https://news.google.com/rss?q=${newsType}&hl=en-IN&gl=IN&ceid=IN:en`);
     const jsonData = await parser.parseStringPromise(response.data);
     res.json(jsonData);
   } catch (error) {

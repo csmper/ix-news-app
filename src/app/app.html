@@ -1,6 +1,13 @@
-<div class="container-fluid">
+<nav class="navbar sticky-top navbar-light bg-light mx-3">
+	<div class="container-fluid btn-group" role="group" aria-label="Basic outlined example">
+		<button type="button" class="btn btn-outline-primary" [class.active]="activeTab === newsType.TOP_NEWS" (click)="activeTab = newsType.TOP_NEWS">Top News</button>
+		<button type="button" class="btn btn-outline-primary" [class.active]="activeTab === newsType.TECHNOLOGY" (click)="activeTab = newsType.TECHNOLOGY">Technology</button>
+		<button type="button" class="btn btn-outline-primary" [class.active]="activeTab === newsType.SPORTS" (click)="activeTab = newsType.SPORTS">Sports</button>
+	</div>
+</nav>
+<div class="mx-3">
 	@for (news of news(); track news.title) {
-		<div class="card border border-success rounded-0 mb-0">
+		<div class="container card border border-success rounded-0 mb-0">
 			<div class="card-header d-flex">
 				<h5 class="card-title">{{ news.title[0] }}</h5>
 			</div>

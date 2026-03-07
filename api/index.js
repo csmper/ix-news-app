@@ -34,10 +34,10 @@ app.get('/health', (req, res) => {
   res.json({ status: 'OK' });
 });
 
-// app.listen(PORT, () => {
-//   console.log(`Server is running on http://localhost:${PORT}`);
-//   console.log(`News API available at http://localhost:${PORT}/api/news`);
-// });
+app.listen(PORT, () => {
+  console.log(`Server is running on http://localhost:${PORT}`);
+  console.log(`News API available at http://localhost:${PORT}/api/news`);
+});
 
 // IMPORTANT: Export for Vercel, do not use app.listen()
 module.exports = app;

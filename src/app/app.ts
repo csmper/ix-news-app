@@ -1,38 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
-
-
-interface NewsSource {
-	_: string;
-	$: {
-		url: string;
-	};
-}
-
-interface NewsItem {
-	title: string;
-	link: string;
-	pubDate: string;
-	description: string;
-	source: NewsSource[];
-}
-
-interface NewsResponse {
-	rss: {
-		channel: {
-			item: NewsItem[];
-		}[];
-	}
-}
-
-enum NewsType {
-	TOP_NEWS = 'Top Stories',
-	TECHNOLOGY = 'Technology',
-	BUSINESS = 'Business',
-	SPORTS = 'Sports'
-}
-
+import { NewsItem, NewsResponse } from './app.model';
+import { NewsType } from './app.enum';
 
 @Component({
 	selector: 'app-root',
@@ -41,13 +11,16 @@ enum NewsType {
 	imports: [DatePipe]
 })
 export class App implements OnInit {
-	protected readonly title = signal('ix-news-app');
 	private readonly http = inject(HttpClient);
 	news = signal<NewsItem[]>([]);
 	newsType = NewsType;
 	activeTab = NewsType.TOP_NEWS;
-	NewsType: any;
 	showSpinner = signal(true);
+	errorMessage = signal('');
+
+	get newsTypes(): NewsType[] {
+		return Object.values(NewsType);
+	}
 
 	ngOnInit() {
 		this.getNews(NewsType.TOP_NEWS);
@@ -55,12 +28,20 @@ export class App implements OnInit {
 
 	getNews(newsType: NewsType) {
 		this.showSpinner.set(true);
+		this.errorMessage.set('');
+		this.news.set([]);
 		this.activeTab = newsType;
 		const params = new URLSearchParams({ newsType: this.activeTab });
-		this.http.get<NewsResponse>(`/api/news?${params}`).subscribe((data) => {
-			this.showSpinner.set(false);
-			this.news.set(data.rss.channel[0].item);
+		this.http.get<NewsResponse>(`/api/news?${params}`).subscribe({
+			next: (data) => {
+				this.showSpinner.set(false);
+				this.news.set(data.rss.channel[0].item);
+			},
+			error: (error) => {
+				this.showSpinner.set(false);
+				this.errorMessage.set('Failed to fetch news. Please try again later.');
+				console.error('Error fetching news:', error);
+			}
 		});
 	}
 }
-

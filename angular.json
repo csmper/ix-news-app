@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "ix-news-app": {
+    "ixcamper-news": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -62,16 +62,16 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "ix-news-app:build:production"
+              "buildTarget": "ixcamper-news:build:production"
             },
             "development": {
-              "buildTarget": "ix-news-app:build:development"
+              "buildTarget": "ixcamper-news:build:development"
             }
           },
           "defaultConfiguration": "development",
-		  "options": {
-			"proxyConfig": "./proxy.conf.json"
-		  }
+          "options": {
+            "proxyConfig": "./proxy.conf.json"
+          }
         },
         "test": {
           "builder": "@angular/build:unit-test"

@@ -1,37 +1,15 @@
 <nav class="navbar sticky-top navbar-light bg-light mx-3">
   <div class="container-fluid d-flex flex-wrap gap-2 justify-content-start">
-    <button
-      type="button"
-      class="btn btn-outline-primary flex-grow-1 flex-sm-grow-0"
-      [class.active]="activeTab === newsType.TOP_NEWS"
-      (click)="getNews(newsType.TOP_NEWS)"
-    >
-      {{ newsType.TOP_NEWS }}
-    </button>
-    <button
-      type="button"
-      class="btn btn-outline-primary flex-grow-1 flex-sm-grow-0"
-      [class.active]="activeTab === newsType.TECHNOLOGY"
-      (click)="getNews(newsType.TECHNOLOGY)"
-    >
-      {{ newsType.TECHNOLOGY }}
-    </button>
-    <button
-      type="button"
-      class="btn btn-outline-primary flex-grow-1 flex-sm-grow-0"
-      [class.active]="activeTab === newsType.BUSINESS"
-      (click)="getNews(newsType.BUSINESS)"
-    >
-      {{ newsType.BUSINESS }}
-    </button>
-    <button
-      type="button"
-      class="btn btn-outline-primary flex-grow-1 flex-sm-grow-0"
-      [class.active]="activeTab === newsType.SPORTS"
-      (click)="getNews(newsType.SPORTS)"
-    >
-      {{ newsType.SPORTS }}
-    </button>
+    @for (type of newsTypes; track type) {
+      <button
+        type="button"
+        class="btn btn-outline-primary flex-grow-1"
+        [class.active]="activeTab === type"
+        (click)="getNews(type)"
+      >
+        {{ type }}
+      </button>
+    }
   </div>
 </nav>
 
@@ -63,5 +41,11 @@
         </div>
       </div>
     }
+  </div>
+}
+
+@if (errorMessage()) {
+  <div class="alert alert-danger mx-3 mt-3" role="alert">
+    {{ errorMessage() }}
   </div>
 }
